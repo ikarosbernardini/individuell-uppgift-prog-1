@@ -1,25 +1,47 @@
-from anvhant import Användarhantering as a
-from anv import Användare as anv
- # importerar klassen Användarhantering som innehåller alla mina menyvals funktioner som bokstaven "a".
+from anvhant import Användarhantering 
+from anv import Användare 
 
-def meny_innan_inloggning():
-    while True: 
-        print("""
+# importerar klassen Användarhantering som innehåller alla mina menyvals funktioner som bokstaven "a".
+
+
+def meny_innan_inloggning(hantering: Användarhantering) -> bool:
+    """
+    Meny som visas när användaren inte är inloggad.
+    """
+    while True: # så länge användaren inte är inloggad så ska denna meny visas.
+        print(
+            """
     -----------------------------------------
     Välj alternativ: 
         1. Logga in med befintlig användare 
         2. Registrera ny användare.
         3. Avsluta programmet. 
     -----------------------------------------
-    """)
-    
-meny_innan_inloggning()
+    """
+        )
+        val: str = input("\n( )\b\b") # sparar användarens val i variabeln "val"
+        try:
+            if val == "1":
+                if hantering.logga_in(): # kallar på logga_in funktionen i klassen Användarhantering
+                    return True # om inloggningen lyckas så returneras True och menyn efter inloggning visas.
+            elif val == "2":
+                    hantering.registrera() # kallar på registrera funktionen i klassen Användarhantering
+            elif val == "3":
+                    print("\nProgrammet avslutas.") 
+                    exit() # avslutar programmet
+        except ValueError: # om användaren skriver in felaktig inmatning så fås ett felmeddelande.
+            print("Felaktig inmatning, försök igen")
 
 
-def meny_efter_inloggning():
-    while True:
-        print(f"\nInloggad som ")
-        print("""
+
+def meny_efter_inloggning(hantering: Användarhantering) -> bool:
+    """
+    Meny som visas när användaren är inloggad.
+    """
+    while True: # så länge användaren är inloggad så ska denna meny visas.
+        print(f"\nInloggad som {hantering.inloggad_anv.namn} ") # visar vilken användare som är inloggad
+        print(
+            """
     -----------------------------------------
     Välj alternativ: 
         1. Byt lösenord 
@@ -29,25 +51,63 @@ def meny_efter_inloggning():
         5. Visa användarlista 
         6. Avsluta programmet.
     -----------------------------------------
-    """)
-        a.val = input("\n:")
+    """
+        )
+        val: str = input("\n( )\b\b") # sparar användarens val i variabeln "val"    
+        try:
+            if val == "1":  # genererar en ny hash nyckel
+                namn: str = input("Ange ditt användarnamn: ")
+                hantering.byt_lösenord(namn)
+
+            elif val == "2": # byter namn på användaren
+                hantering.byt_namn()
+
+            elif val == "3": # byter användare
+                print("Du är nu utloggad.")
+                if meny_innan_inloggning(hantering): # kallar på menyn innan inloggning
+                    continue
+            elif val == "4": # tar bort användare
+            
+                namn: str = input("Ange användarnamn på den användaren du vill ta bort: ")
+                borttagen: bool = hantering.ta_bort_anv(namn) # kallar på ta_bort_anv funktionen i klassen Användarhantering
+                 # sparar resultatet av borttagningen i variabeln "borttagen
+                if borttagen: # endast om borttagningen lyckades
+                    
+                    if hantering.inloggad_anv and hantering.inloggad_anv.namn == namn:
+                        print("Du har tagit bort den inloggade användaren, du är nu utloggad.")
+                        hantering.inloggad_anv = None
+                        if meny_innan_inloggning(hantering): # kallar på menyn innan inloggning
+                            continue 
+            elif val == "5":
+                hantering.lista_användare() # visar alla användare i systemet
+            elif val == "6":
+                print("\nProgrammet avslutas.")
+                exit() # avslutar programmet
+        except ValueError: # om användaren skriver in felaktig inmatning så fås ett felmeddelande.
+            print("Felaktig inmatning, försök igen") 
         
-        if a.val == "1": # genererar en ny hash nyckel
-            a.byt_lösenord()
+def main() -> None:
+    """
+    Startar programmet och kallar på menyerna.
+    """
+    hantering = Användarhantering("anvdata.json") # skapar ett objekt av klassen Användarhantering med filnamnet "anvdata.json"
+    if meny_innan_inloggning(hantering):
+        meny_efter_inloggning(hantering) # kallar på menyn efter inloggning
 
-        elif a.val == "2":
-            nytt_namn = input("Ange nytt användarnamn:")
-            a.ändra_namn(nytt_namn)
+        
+    
 
-        elif a.val == "3":
-            a.bytt_användare()
-        elif a.val == "4":
-            a.ta_bort_anv()
-        elif a.val == "5":
-            meny_innan_inloggning()
-            a.hantera_val()
-        elif a.val == "6":
-            print("\nProgrammet avslutas.")
-            exit()
+if __name__ == "__main__": # startar programmet
+    main() # kallar på main funktionen
 
-meny_efter_inloggning()
+
+
+
+    # att göra så du behöver bekräfta lösenord när du byter namn på användare
+    # finslipa menyer med utseende mässig pimpning
+    # type hinta allt
+    # kommentera allt
+    # hantera fel bättre
+    # läs in all kod. 
+    # läg till datum för skapade användare och skicka logarna till hisotrik.log filen. 
+    # för över vis kod till lagring.py

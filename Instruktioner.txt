@@ -31,3 +31,15 @@ Ni skall ha med villkor i koden. If-satser är ett krav, match-case är valfritt
 Programmet skall kunna göra flera saker, t.ex lägga till, ta bort etc.
 10. Generellt
 main.py skall ha en meny för att visa valen i flödet
+
+
+I applikationen har du en lista med "användare" (objekt)
+För att spara som json, så måste du ha en lista av dict
+användare.till_dict() returnerar innehållet som en dict
+
+Om du loopar genom listan av användare och skapar en ny dict_lista
+dict_lista = []
+for användare in objekt_listan:
+    dict_lista.append(användare.till_dict())
+
+sedan kan du göra json.dumps(dict_lista)
