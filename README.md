@@ -43,7 +43,9 @@ Källor
 https://automatetheboringstuff.com/#toc
 - Python imports : 
 https://docs.python.org/3/library/hashlib.html
+
 https://docs.python.org/3/library/datetime.html
+
 https://docs.python.org/3/library/json.html
 
 Unicode tecken table :
