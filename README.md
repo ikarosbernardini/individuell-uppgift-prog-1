@@ -52,8 +52,7 @@ Unicode tecken table :
 https://symbl.cc/en/unicode-table/#spacing-modifier-letters
 
 ANSI escape codes table : 
-https://jakob-bagterp.github.io/colorist-for-python/ansi-escape-codes/introduction/
-
+https://gist.github.com/rene-d/9e584a7dd2935d0f461904b9f2950007
 
 ----------------------------------------
 
