@@ -51,6 +51,9 @@ https://docs.python.org/3/library/json.html
 Unicode tecken table :
 https://symbl.cc/en/unicode-table/#spacing-modifier-letters
 
+ANSI escape codes table : 
+https://jakob-bagterp.github.io/colorist-for-python/ansi-escape-codes/introduction/
+
 
 ----------------------------------------
 
