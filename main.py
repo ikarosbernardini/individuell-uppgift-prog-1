@@ -77,6 +77,7 @@ def meny_efter_inloggning(hantering: Användarhantering) -> bool:
 
             elif val == "3": # byter användare
                 print("\nDu är nu utloggad.")
+                hantering.logga_händelse(f"{hantering.inloggad_anv.namn} loggade ut.") # loggar händelsen att en användare har loggat ut
                 if meny_innan_inloggning(hantering): # kallar på menyn innan inloggning
                     continue
             elif val == "4": # tar bort användare

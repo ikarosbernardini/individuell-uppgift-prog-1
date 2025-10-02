@@ -34,7 +34,7 @@ class Användarhantering:
         """
         En funktion för att återgå till menyn efter att en åtgärd är utförd, gjord för att slippa spamma koden med samma rad.
         """
-        input("Tryck på Enter för att återgå till menyn.") # pausar programmet tills användaren trycker på Enter.
+        input(f"Tryck på {GRÖN}{FET}Enter{RESET} för att återgå till menyn.") # pausar programmet tills användaren trycker på Enter.
 
     def läs_in_användare(self) -> dict:
         """ "
@@ -101,8 +101,8 @@ class Användarhantering:
         Registerar ny användare och sparar användarens uppgifter i .json filen för att låta användaren
         sedan kunna enkelt logga in med sparade uppgifter.
         """
-        namn: str = input("Nytt användarnamn: ")
-        lösenord: str = input("Nytt lösenord: ")
+        namn: str = input("Nytt användarnamn: ").strip() # tar bort eventuella extra mellanslag runt användarnamnet.
+        lösenord: str = input("Nytt lösenord: ").strip() # tar bort eventuella extra mellanslag runt lösenordet.
 
         if any(anv.namn == namn for anv in self.användare): # om användarnamnet redan finns i systemet så får användaren ett felmeddelande.
             print("\nAnvändarnamnet finns redan.")
@@ -126,7 +126,7 @@ class Användarhantering:
             if anv.namn == användarnamn: # om användarnamnet matchar den inmatade användaren
                 nuv_lös = input("Ange nuvarande lösenord: ")
                 if anv.lösenord_hash == self.hasha_lösenord(nuv_lös): # om det inmatade lösenordet matchar det sparade lösenordet så körs koden vidare till nedan.
-                    nytt_lös = input("Ange nytt lösenord: ")
+                    nytt_lös = input("Ange nytt lösenord: ").strip() # tar bort eventuella extra mellanslag runt lösenordet.
                     anv.lösenord_hash = self.hasha_lösenord(nytt_lös) # uppdaterar lösenordet med det nya hashade lösenordet.
                     self.spara_användare() # sparar ändringarna i .json filen
                     self.logga_händelse(f"Lösenord ändrat för användare: {användarnamn}") # loggar händelsen att en användare har bytt lösenord
@@ -152,22 +152,22 @@ class Användarhantering:
                 lösen = input("Ange lösenord för att bekräfta lösenord: ")
                 if anv.lösenord_hash != self.hasha_lösenord(lösen): # om lösenordet INTE stämmer så får användaren ett felmeddelande och funktionen avbryts.
                     print("\nFelaktigt lösenord.")
-                    self.logga_händelse(f"Namnbyte misslyckades för {nuv_namn}, felaktigt lösenord.") # loggar händelsen att en användare försökte
+                    self.logga_händelse(f"Namnbyte {RÖD}{FET}misslyckades{RESET} för {nuv_namn}, felaktigt lösenord.") # loggar händelsen att en användare försökte
                     self.återgå()
                     return
                 
-                nytt_namn: str = input("\nAnge nytt användarnamn: ")
+                nytt_namn: str = input("\nAnge nytt användarnamn: ").strip() # tar bort eventuella extra mellanslag runt användarnamnet.
                 if any(a.namn == nytt_namn for a in self.användare): # kontrollerar om det nya namnet redan finns
                         print("\nAnvändarnamnet är upptaget, vänligen testa med ett annat. ")
-                        self.logga_händelse(f"Namnbyte misslyckades, {nytt_namn} var upptaget.") # loggar händelsen att en användare försökte byta namn till ett redan upptaget namn
+                        self.logga_händelse(f"Namnbyte {RÖD}{FET}misslyckades{RESET}, {nytt_namn} var {RÖD}{FET}upptaget{RESET}.") # loggar händelsen att en användare försökte byta namn till ett redan upptaget namn
                         self.återgå()
                         return
                     
                 # Uppdatera och spara det nya namnet
                 anv.namn = nytt_namn # uppdaterar användarnamnet med det nya namnet.
                 self.spara_användare() # sparar ändringarna i .json filen
-                self.logga_händelse(f"Användarnamn ändrat från {nuv_namn} till {nytt_namn}") # loggar händelsen att en användare har bytt namn
-                print(f"\nAnvändarnamnet uppdaterades och användare heter numera {nytt_namn}.") # bekräftelse till användaren att namnbytet lyckades.
+                self.logga_händelse(f"Användarnamn ändrat från {GUL}{FET}{nuv_namn}{RESET} till {LJUSBLÅ}{FET}{nytt_namn}{RESET}") # loggar händelsen att en användare har bytt namn
+                print(f"\nAnvändarnamnet {GRÖN}{FET}uppdaterades{RESET} och användare heter numera {LJUSBLÅ} {nytt_namn}.{RESET}") # bekräftelse till användaren att namnbytet lyckades.
                 self.återgå()
                 return
         print("\nAnvändaren hittades inte.")
@@ -181,7 +181,7 @@ class Användarhantering:
             print(f"\nSkriv {RÖD}'avbryt'{RESET} som användarnamn för att avbryta inloggningen.")
             namn: str = input("Användarnamn:").strip() # tar bort eventuella extra mellanslag runt användarnamnet.
             if namn.lower() == "avbryt": # om användaren skriver in 'avbryt' så avbryts inloggningen och användaren återgår till menyn.
-                print("\nÅtervänder till huvudmenyn...")
+                print(f"\nÅtervänder till {UNDERSTRUKEN}{CYAN}huvudmenyn{RESET}...")
                 return False
             lösenord: str = input("Lösenord:")
             lösenord_hash: str = self.hasha_lösenord(lösenord) # hashar det inmatade lösenordet för att kunna jämföra med det sparade hashade lösenordet i .json filen.
@@ -237,7 +237,7 @@ class Användarhantering:
         """
         print("Registerade användare:")
         for anv in self.användare: # för varje användare i listan så skrivs användarnamnet ut.
-            print(f"- {anv.namn}") # skriver ut användarnamnet
+            print(f"-{LJUSBLÅ} {anv.namn} {RESET}") # skriver ut användarnamnet
         self.återgå() 
 
     def __init__(self, filväg: str) -> None:
