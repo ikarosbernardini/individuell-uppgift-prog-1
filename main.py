@@ -9,6 +9,7 @@ RÖD = "\033[31m"
 GRÖN = "\033[32m"
 GUL = "\033[33m"
 BLÅ = "\033[34m"
+LJUSBLÅ = "\033[1;34m"
 CYAN = "\033[36m"
 FET = "\033[1m"
 UNDERSTRUKEN = "\033[4m"
@@ -32,7 +33,7 @@ def meny_innan_inloggning(hantering: Användarhantering) -> bool:
 """)
 
 
-        val: str = input(f"\n( )\b\b") # sparar användarens val i variabeln "val"
+        val: str = input(f"\n{CYAN}❰ ❱{RESET}\b\b") # sparar användarens val i variabeln "val"
         try:
             if val == "1":
                 if hantering.logga_in(): # kallar på logga_in funktionen i klassen Användarhantering
@@ -40,10 +41,10 @@ def meny_innan_inloggning(hantering: Användarhantering) -> bool:
             elif val == "2":
                     hantering.registrera() # kallar på registrera funktionen i klassen Användarhantering
             elif val == "3":
-                    print("\nProgrammet avslutas.") 
+                    print(f"\n{RÖD}Programmet avslutas.{RESET}") 
                     exit() # avslutar programmet
         except ValueError: # om användaren skriver in felaktig inmatning så fås ett felmeddelande.
-            print("\nFelaktig inmatning, försök igen")
+            print(f"\n{RÖD}Felaktig inmatning, försök igen{RESET}")
 
 
 
@@ -52,7 +53,7 @@ def meny_efter_inloggning(hantering: Användarhantering) -> bool:
     Meny som visas när användaren är inloggad.
     """
     while True: # så länge användaren är inloggad så ska denna meny visas.
-        print(f"\nInloggad som {hantering.inloggad_anv.namn} ") # visar vilken användare som är inloggad
+        print(f"\nInloggad som{FET}{LJUSBLÅ} {hantering.inloggad_anv.namn} {RESET}") # visar vilken användare som är inloggad
         print(f"""{CYAN}
 ┌────────────────────────────────────────────┐
 │{RESET}{FET}{GUL}          Välj alternativ:                  {RESET}{CYAN}│
@@ -65,7 +66,7 @@ def meny_efter_inloggning(hantering: Användarhantering) -> bool:
 └────────────────────────────────────────────┘{RESET}
 """)
 
-        val: str = input("\n( )\b\b") # sparar användarens val i variabeln "val"    
+        val: str = input(f"\n{CYAN}❰ ❱{RESET}\b\b") # sparar användarens val i variabeln "val"    
         try:
             if val == "1":  # genererar en ny hash nyckel
                 namn: str = input("\nAnge ditt användarnamn: ")
@@ -95,6 +96,8 @@ def meny_efter_inloggning(hantering: Användarhantering) -> bool:
             elif val == "6":
                 print("\nProgrammet avslutas.")
                 exit() # avslutar programmet
+            elif val == "7": # dolt alternativ för att visa loggen, admin log
+                hantering.visa_logg() 
         except ValueError: # om användaren skriver in felaktig inmatning så fås ett felmeddelande.
             print("\nFelaktig inmatning, försök igen") 
         
@@ -122,4 +125,4 @@ if __name__ == "__main__": # startar programmet
     # hantera fel bättre 
     # läs in all kod. 
     # läg till datum för skapade användare och skicka logarna till hisotrik.log filen. 
-    # för över vis kod till lagring.py
+    

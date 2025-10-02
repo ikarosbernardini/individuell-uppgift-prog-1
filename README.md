@@ -18,13 +18,19 @@ python main.py eller python3 main.py beroende på ditt operativsystem
 
 Funktioner
 - Registrera nya användare med lösenord (hashas säkert)
-- Logga in med verifiering mot sparad data
-- Lista alla registrerade användare
+- Logga in med verifiering mot sparad data i .json filen
+- Byt lösenord med bekräftelse av nuvarande lösenord
+- Byt användarnamn med lösenordsverifiering och koll mot namnkonflikter(upptagna namn)
 - Radera användare (med lösenordsverifiering och bekräftelse)
+- Automatisk utloggning om aktuell användare tas bort
+- Lista alla registrerade användare
 - Tydlig menystruktur med validering och återkoppling
-- Loggning av viktiga händelser i historik.log
-- Felhantering för tomma fält, ogiltiga val och misslyckade operationer
 - "Tryck Enter för att fortsätta"-flöde för bättre användarupplevelse
+- Loggning av alla viktiga händelser i historik.log (registrering, inloggning, borttagning, misslyckade försök)
+- Dold adminfunktion: menyval 7 visar hela logghistoriken
+- Färgglad och stilren terminal "look" med Unicode symboler och ANSI färgkoder
+- Stabilare felhantering för tomma fält, ogiltiga val, filfel
+
 
 ----------------------------------------
 
@@ -48,10 +54,10 @@ https://docs.python.org/3/library/datetime.html
 
 https://docs.python.org/3/library/json.html
 
-Unicode tecken table :
+-Unicode tecken table :
 https://symbl.cc/en/unicode-table/#spacing-modifier-letters
 
-ANSI escape codes table : 
+-ANSI escape codes table : 
 https://gist.github.com/rene-d/9e584a7dd2935d0f461904b9f2950007
 
 ----------------------------------------
