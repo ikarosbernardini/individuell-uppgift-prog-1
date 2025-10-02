@@ -94,7 +94,8 @@ def meny_efter_inloggning(hantering: Användarhantering) -> bool:
             elif val == "5":
                 hantering.lista_användare() # visar alla användare i systemet
             elif val == "6":
-                print("\nProgrammet avslutas.")
+                print(f"\n{RÖD}Programmet avslutas.{RESET}")
+                hantering.logga_händelse(f"Programmet avslutades av {hantering.inloggad_anv.namn}.") # loggar händelsen att programmet avslutades
                 exit() # avslutar programmet
             elif val == "7": # dolt alternativ för att visa loggen, admin log
                 hantering.visa_logg() 
