@@ -149,7 +149,7 @@ class Användarhantering:
 
         for anv in self.användare: # för varje användare i listan så kollar vi om användarnamnet matchar den inmatade användaren.
             if anv.namn == nuv_namn: # om användarnamnet matchar den inmatade användaren
-                lösen = input("Ange lösenord för att bekräfta lösenord: ")
+                lösen: str = input("Ange lösenord för att bekräfta lösenord: ") # ber användaren att ange lösenordet för att bekräfta namnbytet.
                 if anv.lösenord_hash != self.hasha_lösenord(lösen): # om lösenordet INTE stämmer så får användaren ett felmeddelande och funktionen avbryts.
                     print("\nFelaktigt lösenord.")
                     self.logga_händelse(f"Namnbyte {RÖD}{FET}misslyckades{RESET} för {nuv_namn}, felaktigt lösenord.") # loggar händelsen att en användare försökte
@@ -166,7 +166,7 @@ class Användarhantering:
                 # Uppdatera och spara det nya namnet
                 anv.namn = nytt_namn # uppdaterar användarnamnet med det nya namnet.
                 self.spara_användare() # sparar ändringarna i .json filen
-                self.logga_händelse(f"Användarnamn ändrat från {GUL}{FET}{nuv_namn}{RESET} till {LJUSBLÅ}{FET}{nytt_namn}{RESET}") # loggar händelsen att en användare har bytt namn
+                self.logga_händelse(f"Användarnamn ändrat från {nuv_namn} till {nytt_namn}") # loggar händelsen att en användare har bytt namn
                 print(f"\nAnvändarnamnet {GRÖN}{FET}uppdaterades{RESET} och användare heter numera {LJUSBLÅ} {nytt_namn}.{RESET}") # bekräftelse till användaren att namnbytet lyckades.
                 self.återgå()
                 return
@@ -209,9 +209,9 @@ class Användarhantering:
         """
         for anv in self.användare: # för varje användare i listan så kollar vi om användarnamnet matchar den inmatade användaren.
             if anv.namn == användarnamn: # om användarnamnet matchar den inmatade användaren
-                lösen = input(f"Ange lösenord för {användarnamn} för att ta bort användaren: ") # ber användaren att ange lösenordet för att bekräfta borttagningen.
+                lösen: str = input(f"Ange lösenord för {användarnamn} för att ta bort användaren: ") # ber användaren att ange lösenordet för att bekräfta borttagningen.
                 if anv.lösenord_hash == self.hasha_lösenord(lösen): # om lösenordet stämmer så körs koden vidare till nedan. 
-                    bekräfta = input(f"\nÄr du säker på att du vill ta bort användaren {användarnamn}? (ja/nej): ").lower() # ber användaren att bekräfta borttagningen.
+                    bekräfta: str = input(f"\nÄr du säker på att du vill ta bort användaren {användarnamn}? (ja/nej): ").lower() # ber användaren att bekräfta borttagningen.
                     if bekräfta == "ja": # om användaren bekräftar borttagningen så tas användaren bort.
                         self.användare = [a for a in self.användare if a.namn != användarnamn] # tar bort användaren från listan och använder "a for a in self.användare" för att skapa en ny lista utan den borttagna användaren.
                         self.spara_användare() # sparar ändringarna i .json filen
