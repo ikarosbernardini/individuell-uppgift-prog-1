@@ -62,5 +62,17 @@ https://gist.github.com/rene-d/9e584a7dd2935d0f461904b9f2950007
 
 ----------------------------------------
 
+Framtids planer för detta skript.
+
+1. Byta .json hanteringen mot en SQLDatabas
+2. Kasta in skriptet i en container via podman och ha det aktivt körandes på en lokalport.
+3. connecta skriptet med en API och dra upp mot en server så loggningar och liknande blir mer än bara lokala loggningar.
+4. lär dig etrinket och skapa en interaktiv gui.
+5. lägg även till en authticator och förbättra säkerheten ännu mer.
+6. Skapa flera meny val, 1 för profil hantering meny, 2. för container status och log meny, 3. server stauts meny osv osv 
+
+
+
+
 Skapat av Ikaros Bernardini
 
